@@ -27,8 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Tabellenstruktur für Tabelle `access_table`
 --
-
-\connect ninjabet
+SET DATABASE = "ninjabet"
 
 DROP TABLE IF EXISTS `access_table`;
 CREATE TABLE IF NOT EXISTS `access_table` (
