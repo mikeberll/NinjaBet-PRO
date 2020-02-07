@@ -20,7 +20,6 @@ import java.net.URL;
 
 public class ViewList extends AppCompatActivity {
     ListView listView;
-    String view_url = "http://10.0.2.2/view.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
