@@ -30,4 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public void Registration(View view) {
         startActivity(new Intent(this, Register.class ) );
     }
+    public void ViewList(View view) {
+        startActivity(new Intent(this, ViewList.class ) );
+    }
 }
