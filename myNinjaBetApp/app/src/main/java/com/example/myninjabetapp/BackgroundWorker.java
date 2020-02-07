@@ -3,6 +3,8 @@ package com.example.myninjabetapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -16,18 +18,21 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
-    TextView textView;
+    ListView listView;
     BackgroundWorker (Context ctx) {
         context = ctx;
-        textView = null;
+        listView = null;
     }
-    BackgroundWorker (TextView txt) {
-        context = null;
-        textView = txt;
+    BackgroundWorker (Context ctx, ListView lv) {
+        context = ctx;
+        listView = lv;
     }
     @Override
     protected String doInBackground(String... params) {
@@ -138,7 +143,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPreExecute() {
-        if (context != null) {
+        if (listView == null) {
 
             alertDialog = new AlertDialog.Builder(context).create();
             alertDialog.setTitle("Login Status");
@@ -147,13 +152,15 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
 
     protected void onPostExecute(String result) {
-        if (context != null) {
+        if (listView == null) {
             alertDialog.setMessage(result);
             alertDialog.show();
         }
         else {
-            result = result.replace("!", System.getProperty("line.separator"));
-            textView.setText(result);
+            List<String> myList = new ArrayList<String>(Arrays.asList(result.split("!")));
+            ArrayAdapter arrayAdapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, myList);
+            listView.setAdapter(arrayAdapter);
+
         }
 
 

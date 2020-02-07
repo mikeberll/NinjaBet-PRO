@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedInputStream;
@@ -18,16 +19,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ViewList extends AppCompatActivity {
-    TextView tt;
+    ListView listView;
     String view_url = "http://10.0.2.2/view.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewlist);
-        tt = findViewById(R.id.tt);
+        listView = findViewById(R.id.v_listview);
         String type = "view";
-        BackgroundWorker backgroundWorker = new BackgroundWorker(tt);
+        BackgroundWorker backgroundWorker = new BackgroundWorker(this, listView);
         backgroundWorker.execute(type);
 
     }
