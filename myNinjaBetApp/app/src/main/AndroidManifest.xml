@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ViewList"></activity>
+        <activity android:name=".NewTransaction"></activity>
+        <activity android:name=".Transaction" />
+        <activity android:name=".ViewList" />
         <activity android:name=".Register" />
         <activity android:name=".MainActivity">
             <intent-filter>

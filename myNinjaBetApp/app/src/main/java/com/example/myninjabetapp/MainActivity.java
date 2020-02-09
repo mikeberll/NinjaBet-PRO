@@ -33,4 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public void ViewList(View view) {
         startActivity(new Intent(this, ViewList.class ) );
     }
+    public void Transaction(View view) {
+        startActivity(new Intent(this, Transaction.class ) );
+    }
 }

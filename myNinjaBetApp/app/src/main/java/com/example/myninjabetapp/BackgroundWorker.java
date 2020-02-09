@@ -40,7 +40,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         // "http://dontqwerty.hopto.org:62309/login.php";
         String login_url = "http://10.0.2.2/login.php";
         String register_url = "http://10.0.2.2/insert_to_root.php";
-        String view_url = "http://10.0.2.2/view.php";
+        String transaction_url = "http://10.0.2.2/insert_to_tr.php";
+        String view_url; //  = "http://10.0.2.2/view.php";
         if(type.equals("login")) {
             try {
                 String user_name = params[1];
@@ -113,7 +114,47 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 e.printStackTrace();
             }
         }
-        else if (type.equals("view")) {
+        else if (type.equals("new_tr")) {
+            try {
+                String user1 = params[1];
+                String user2 = params[2];
+                String cash = params[3];
+                URL url = new URL(transaction_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("user1","UTF-8")+"="+URLEncoder.encode(user1,"UTF-8")+"&"
+                        +URLEncoder.encode("user2","UTF-8")+"="+URLEncoder.encode(user2,"UTF-8")+"&"
+                        +URLEncoder.encode("cash","UTF-8")+"="+URLEncoder.encode(cash,"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine())!= null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else  {
+            if (type.equals("view"))
+                view_url = "http://10.0.2.2/view.php";
+            else
+                view_url = "http://10.0.2.2/t_view.php";
             try {
                 URL url = new URL(view_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -144,7 +185,6 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute() {
         if (listView == null) {
-
             alertDialog = new AlertDialog.Builder(context).create();
             alertDialog.setTitle("Login Status");
         }
