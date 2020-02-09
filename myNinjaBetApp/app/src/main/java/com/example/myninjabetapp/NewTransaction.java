@@ -16,8 +16,9 @@ import android.widget.Toast;
 
 public class NewTransaction extends AppCompatActivity {
     ListView listView;
-    Integer user1, user2, cash = 0;
+    Integer cash = 0;
     String str_user1, str_user2;
+    String[] u1, u2;
     Integer count_insertion = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,6 @@ public class NewTransaction extends AppCompatActivity {
         BackgroundWorker backgroundWorker = new BackgroundWorker(this, listView);
         backgroundWorker.execute(type);
         // ListView on item selected listener.
-        user1 = 1;
-        user2 = 2;
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -56,8 +55,10 @@ public class NewTransaction extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             cash = Integer.valueOf(input.getText().toString());
                             String typet = "new_tr";
+                            u1 = str_user1.split(" ");
+                            u2 = str_user2.split(" ");
                             BackgroundWorker backgroundWorker = new BackgroundWorker(NewTransaction.this);
-                            backgroundWorker.execute(typet, user1.toString(), user2.toString(), cash.toString());
+                            backgroundWorker.execute(typet, u1[0], u1[1], u2[0], u2[1], cash.toString());
                         }
                     });
                     alert.show();

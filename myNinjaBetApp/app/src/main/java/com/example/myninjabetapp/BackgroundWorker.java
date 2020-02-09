@@ -116,9 +116,11 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         }
         else if (type.equals("new_tr")) {
             try {
-                String user1 = params[1];
-                String user2 = params[2];
-                String cash = params[3];
+                String user1_1 = params[1];
+                String user1_2 = params[2];
+                String user2_1 = params[3];
+                String user2_2 = params[4];
+                String cash = params[5];
                 URL url = new URL(transaction_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -126,8 +128,10 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("user1","UTF-8")+"="+URLEncoder.encode(user1,"UTF-8")+"&"
-                        +URLEncoder.encode("user2","UTF-8")+"="+URLEncoder.encode(user2,"UTF-8")+"&"
+                String post_data = URLEncoder.encode("user1_1","UTF-8")+"="+URLEncoder.encode(user1_1,"UTF-8")+"&"
+                        +URLEncoder.encode("user1_2","UTF-8")+"="+URLEncoder.encode(user1_2,"UTF-8")+"&"
+                        +URLEncoder.encode("user2_1","UTF-8")+"="+URLEncoder.encode(user2_1,"UTF-8")+"&"
+                        +URLEncoder.encode("user2_2","UTF-8")+"="+URLEncoder.encode(user2_2,"UTF-8")+"&"
                         +URLEncoder.encode("cash","UTF-8")+"="+URLEncoder.encode(cash,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
