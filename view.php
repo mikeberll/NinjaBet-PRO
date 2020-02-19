@@ -9,6 +9,7 @@ if (mysqli_num_rows($result) > 0) {
 
     while ($obj = $result->fetch_object()) {
         echo $obj->name.' '.$obj->surname."\n";
+	echo '<br>'
     }
 }
 else {
